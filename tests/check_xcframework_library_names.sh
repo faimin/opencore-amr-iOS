@@ -45,6 +45,8 @@ expect_not_contains "$workflow" '${lib}-macos.a' \
   "workflow must not create macOS libraries with a -macos suffix"
 expect_contains "$workflow" '${OUTPUT_DIR}/fat/${platform}/lib${lib}.a' \
   "workflow must pass the same lib<name>.a basename for every xcframework slice"
+expect_contains "$workflow" 'branches: [ main, master ]' \
+  "workflow must run for both main and master branch filters"
 
 for file in "$ci_helper" "$local_builder"; do
   expect_not_contains "$file" 'iphonesimulator-lib$lib_name.a' \
