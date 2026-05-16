@@ -175,10 +175,16 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: Download XCFrameworks
-      uses: actions/download-artifact@v8
+    - uses: actions/download-artifact@v8
       with:
         name: XCFrameworks
+        path: artifacts
+
+    - name: Collect xcframework zips
+      run: |
+        set -euo pipefail
+        find artifacts -name "*.xcframework.zip" -type f -exec cp {} . \;
+        ls -la
 
     - name: Determine Release Version
       id: version
